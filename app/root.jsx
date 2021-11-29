@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from "react"
 import {
   Links,
   LiveReload,
@@ -8,8 +8,9 @@ import {
   ScrollRestoration,
   useCatch,
   Link
-} from "remix";
-
+} from "remix"
+import { IdProvider } from "@radix-ui/react-id"
+import { Container } from "~/components/container"
 // import deleteMeRemixStyles from "~/styles/demos/remix.css";
 // import globalStylesUrl from "~/styles/global.css";
 // import darkStylesUrl from "~/styles/dark.css";
@@ -46,9 +47,11 @@ export let links = () => {
 export default function App() {
   return (
     <Document>
-      <Layout>
-        <Outlet />
-      </Layout>
+      <IdProvider>
+        <Layout>
+          <Outlet />
+        </Layout>
+      </IdProvider>
     </Document>
   );
 }
@@ -76,9 +79,9 @@ function Document({ children, title }) {
 
 function Layout({ children }) {
   return (
-    <main>
+    <Container as="main">
       {children}
-    </main>
+    </Container>
   )
 }
 

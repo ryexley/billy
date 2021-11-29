@@ -1,5 +1,13 @@
 import { createStitches } from "@stitches/react"
-import { gray, lime, plum, olive, crimson } from "@radix-ui/colors"
+import {
+  grayDark as gray,
+  limeDark as lime,
+  violetDark as violet,
+  blueDark as blue,
+  plumDark as plum,
+  oliveDark as olive,
+  crimsonDark as crimson
+} from "@radix-ui/colors"
 
 const colors = {
   ...gray,
@@ -7,7 +15,9 @@ const colors = {
   ...plum,
   ...olive,
   ...crimson,
-  white: "$gray1"
+  ...violet,
+  ...blue,
+  white: "$gray12"
 }
 
 export const breaks = {
@@ -51,7 +61,8 @@ export const {
     },
     fontSizes: { ...sizes },
     space: { ...sizes },
-    sizes
+    sizes,
+    breaks
   },
   media: {
     xs: `(min-width: ${breaks.xs})`,
