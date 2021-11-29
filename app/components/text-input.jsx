@@ -1,12 +1,19 @@
-import { blackA, crimsonA } from "@radix-ui/colors"
+import PropTypes from "prop-types"
+import { blackA, whiteA, crimsonA } from "@radix-ui/colors"
 import { Flex } from "~/components/flex"
 import { InputLabel } from "~/components/input-label"
 import { styled } from "~/styles"
 
+export const inputState = {
+  normal: "normal",
+  error: "error",
+  disabled: "disabled"
+}
+
 const StyledInput = styled("input", {
   all: "unset",
   alignItems: "center",
-  backgroundColor: blackA.blackA5,
+  backgroundColor: whiteA.whiteA7,
   borderRadius: 4,
   boxShadow: `0 0 0 1px ${blackA.blackA9}`,
   color: "$white",
@@ -51,6 +58,15 @@ const StyledInput = styled("input", {
   }
 })
 
+const Error = styled("span", {
+  background: blackA.blackA9,
+  borderRadius: 4,
+  color: "$crimson8",
+  fontSize: "0.85rem",
+  padding: "0.25rem 0.5rem",
+  smoothTransition: "all"
+})
+
 function InputContainer({ children }) {
   const containerStyle = {
     marginBottom: "$3"
@@ -77,6 +93,7 @@ export function TextInput({
   inputId,
   inputName,
   state,
+  error,
   ...props
 }) {
   return (
@@ -96,12 +113,18 @@ export function TextInput({
         name={inputName}
         state={state}
         {...props} />
+      {error ? <Error role="alert" id={`${inputName}-error`}>{error}</Error> : null}
     </InputContainer>
   )
 }
 
+TextInput.propTypes = {
+  state: PropTypes.oneOf(Object.values(inputState))
+}
+
 TextInput.defaultProps = {
-  showLabel: true
+  showLabel: true,
+  state: inputState.normal
 }
 
 export function PasswordInput({ ...props }) {
