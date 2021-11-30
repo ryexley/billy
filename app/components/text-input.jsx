@@ -27,6 +27,10 @@ const StyledInput = styled("input", {
   padding: "0 0.625rem",
   smoothTransition: "all",
 
+  ["&:hover"]: {
+    boxShadow: `0 0 1px 2px ${blackA.blackA10}`
+  },
+
   ["&:focus"]: {
     boxShadow: `0 0 1px 2px ${blackA.blackA10}`
   },

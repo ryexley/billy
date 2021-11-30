@@ -6,7 +6,8 @@ import {
   blueDark as blue,
   plumDark as plum,
   oliveDark as olive,
-  crimsonDark as crimson
+  crimsonDark as crimson,
+  amberDark as amber
 } from "@radix-ui/colors"
 
 const colors = {
@@ -17,6 +18,7 @@ const colors = {
   ...crimson,
   ...violet,
   ...blue,
+  ...amber,
   white: "$gray12"
 }
 
