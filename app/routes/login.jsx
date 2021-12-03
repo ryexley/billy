@@ -1,8 +1,10 @@
 import { Link, useSearchParams, useActionData } from "remix"
+import { whiteA } from "@radix-ui/colors"
 import { Flex } from "~/components/flex"
 import { Alert, variants as alertType } from "~/components/alert"
 import { TextInput, PasswordInput, inputState } from "~/components/text-input"
 import { Button } from "~/components/button"
+import { TabSet, TabList, Tab, TabContent } from "~/components/tab-set"
 import { login as validators } from "~/validation"
 import { login, createUserSession } from "~/util/auth.server"
 import { app as urls } from "~/urls"
@@ -62,8 +64,8 @@ export async function action({ request }) {
   })
 }
 
-const Box = styled(Flex, {
-  margin: "$6 auto",
+const Box = styled("div", {
+  margin: "0 auto",
   width: "$breaks$s"
 })
 
@@ -72,10 +74,9 @@ const FormHeading = styled("h1", {
 })
 
 const LoginForm = styled("form", {
-  background: `linear-gradient(165deg, $violet5, $blue6)`,
-  backgroundColor: "$violet5",
+  backgroundColor: whiteA.whiteA8,
   border: "1px solid $gray2",
-  borderRadius: "1rem",
+  // borderRadius: "1rem",
   padding: "$4",
   width: "100%"
 })
@@ -93,10 +94,57 @@ export default function Login() {
   let [searchParams] = useSearchParams()
 
   return (
-    <Box
-      align="start"
-      direction="column"
-      gap="1">
+    <Box>
+      <TabSet defaultValue="login">
+        <TabList aria-label="Authentication">
+          <Tab value="login">Login</Tab>
+          <Tab value="signup">Sign Up</Tab>
+        </TabList>
+        <TabContent value="login">
+          <LoginForm
+            method="post"
+            aria-describedby={actionData?.formError ? "form-error-message" : undefined}>
+            {isNotEmpty(actionData?.formError) ? (
+              <Alert
+                id="form-error-message"
+                type={alertType.error}
+                show={true}
+                title="😕 Oh no"
+                message={actionData?.formError} />
+            ) : null}
+            <TextInput
+              inputId="email"
+              inputName="email"
+              label="Email Address"
+              css={inputStyle}
+              state={actionData?.errors?.email ? inputState.error : inputState.normal}
+              defaultValue={actionData?.credentials?.email}
+              error={actionData?.errors?.email}
+              aria-describedby={actionData?.errors?.email ? "email-error" : undefined} />
+            <PasswordInput
+              inputId="password"
+              inputName="password"
+              label="Password"
+              css={inputStyle}
+              state={actionData?.errors?.password ? inputState.error : inputState.normal}
+              defaultValue={actionData?.credentials?.password}
+              error={actionData?.errors?.password} />
+            <FormActions justify="end">
+              <Button type="submit">
+                Submit
+              </Button>
+            </FormActions>
+            <input
+              type="hidden"
+              name="redirectTo"
+              value={searchParams.get("redirectTo") ?? urls.home} />
+          </LoginForm>
+        </TabContent>
+        <TabContent value="signup">
+          TODO: Create Sign Up Form
+        </TabContent>
+      </TabSet>
+{/*
       <FormHeading>Login</FormHeading>
       <LoginForm
         method="post"
@@ -136,6 +184,7 @@ export default function Login() {
           name="redirectTo"
           value={searchParams.get("redirectTo") ?? urls.home} />
       </LoginForm>
+*/}
     </Box>
   )
 }

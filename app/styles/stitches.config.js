@@ -7,7 +7,8 @@ import {
   plumDark as plum,
   oliveDark as olive,
   crimsonDark as crimson,
-  amberDark as amber
+  amberDark as amber,
+  indigoDark as indigo
 } from "@radix-ui/colors"
 
 const colors = {
@@ -19,7 +20,9 @@ const colors = {
   ...violet,
   ...blue,
   ...amber,
-  white: "$gray12"
+  ...indigo,
+  white: "$gray12",
+  transparent: "#16161800"
 }
 
 export const breaks = {

@@ -7,8 +7,25 @@ export const globalStyles = globalCss({
     padding: 0
   },
   body: {
-    background: "$gray1",
+    backgroundColor: "$gray1",
     color: "$white",
-    fontFamily: "$primary"
+    fontFamily: "$primary",
+    minHeight: "100vh",
+    minWidth: "100vw",
+
+    ["&::after"]: {
+      backgroundColor: "$gray1",
+      backgroundRepeat: "no-repeat",
+      backgroundImage: `
+        radial-gradient(circle 800px at 700px 200px, $crimson2, $transparent),
+        radial-gradient(circle 600px at calc(100% - 300px) 300px, var(--colors-violet2), $transparent)
+      `,
+      height: "100vh",
+      position: "absolute",
+      width: "100vw"
+    }
+  },
+  main: {
+    padding: "$4"
   }
 })

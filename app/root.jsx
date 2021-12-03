@@ -15,6 +15,25 @@ import { Container } from "~/components/container"
 // import globalStylesUrl from "~/styles/global.css";
 // import darkStylesUrl from "~/styles/dark.css";
 import { globalStyles } from "~/styles/global"
+import { styled } from "~/styles"
+
+const Background = styled("div", {
+  backgroundColor: "$gray1",
+  backgroundRepeat: "no-repeat",
+  backgroundImage: `
+    radial-gradient(circle 1200px at 400px 200px, $plum2, $transparent),
+    radial-gradient(circle 700px at calc(100% - 300px) 300px, $violet2, $transparent),
+    radial-gradient(circle 1200px at right top, $blue3, $blue2, $transparent),
+    radial-gradient(circle 1000px at right bottom, $crimson3, $crimson2, $transparent),
+    radial-gradient(circle 500px at calc(50% - 600px) calc(100% - 100px), $olive2, $olive3, $transparent)
+  `,
+  height: "100vh",
+  position: "absolute",
+  width: "100vw",
+  zIndex: -1
+})
+
+// ಠ_ಠ ``
 
 /**
  * The `links` export is a function that returns an array of objects that map to
@@ -33,6 +52,7 @@ export let links = () => {
     //   media: "(prefers-color-scheme: dark)"
     // },
     // { rel: "stylesheet", href: deleteMeRemixStyles }
+    { rel: "icon", href: "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💸</text></svg>" },
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
     { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "" },
     { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400&display=swap" }
@@ -79,9 +99,12 @@ function Document({ children, title }) {
 
 function Layout({ children }) {
   return (
-    <Container as="main">
-      {children}
-    </Container>
+    <>
+      <Background />
+      <Container as="main">
+        {children}
+      </Container>
+    </>
   )
 }
 

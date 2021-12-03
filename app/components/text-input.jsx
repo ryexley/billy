@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import { blackA, whiteA, crimsonA } from "@radix-ui/colors"
 import { Flex } from "~/components/flex"
 import { InputLabel } from "~/components/input-label"
-import { styled } from "~/styles"
+import { styled, keyframes } from "~/styles"
 
 export const inputState = {
   normal: "normal",
@@ -10,16 +10,25 @@ export const inputState = {
   disabled: "disabled"
 }
 
+const overrideAutofill = keyframes({
+  ["0%, 100%"]: {
+    backgroundColor: whiteA.whiteA11,
+    boxShadow: `0 0 0 1px ${blackA.blackA9}`,
+    color: "inherit",
+    fontSize: "1rem"
+  }
+})
+
 const StyledInput = styled("input", {
   all: "unset",
   alignItems: "center",
-  backgroundColor: whiteA.whiteA7,
+  backgroundColor: whiteA.whiteA11,
   borderRadius: 4,
   boxShadow: `0 0 0 1px ${blackA.blackA9}`,
-  color: "$white",
+  color: "$gray1",
   display: "inline-flex",
   fontSize: "1rem",
-  fontWeight: 200,
+  fontWeight: 300,
   height: "2.1875rem",
   justifyContent: "center",
   lineHeight: "1.25rem",
@@ -27,12 +36,26 @@ const StyledInput = styled("input", {
   padding: "0 0.625rem",
   smoothTransition: "all",
 
-  ["&:hover"]: {
+  ["&:hover, &:focus"]: {
+    backgroundColor: whiteA.whiteA12,
     boxShadow: `0 0 1px 2px ${blackA.blackA10}`
   },
 
-  ["&:focus"]: {
-    boxShadow: `0 0 1px 2px ${blackA.blackA10}`
+  [`
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active,
+    &:-internal-autofill-selected,
+    &:-internal-autofill-previewed
+  `]: {
+    ["-webkit-animation-delay"]: "1s",
+    ["-webkit-animation-name"]: overrideAutofill,
+    ["-webkit-animation-fillmode"]: "both",
+
+    ["&:hover, &:focus"]: {
+      boxShadow: `0 0 1px 2px ${blackA.blackA10}`
+    }
   },
 
   variants: {
@@ -40,13 +63,13 @@ const StyledInput = styled("input", {
       normal: {},
 
       error: {
-        background: blackA.blackA7,
+        background: whiteA.whiteA11,
         border: "1px solid $crimson8",
         borderLeft: "5px solid $crimson8",
         boxShadow: `0 0 0 1px ${crimsonA.crimsonA8}`,
 
-        ["&:focus"]: {
-          background: blackA.blackA7,
+        ["&:hover, &:focus"]: {
+          background: whiteA.whiteA11,
           border: "1px solid $crimson8",
           borderLeft: "5px solid $crimson8",
           boxShadow: `0 0 1px 2px ${crimsonA.crimsonA8}`
@@ -138,6 +161,9 @@ export function PasswordInput({ ...props }) {
   }
 
   return (
-    <TextInput type="password" css={passwordInputStyle} {...props} />
+    <TextInput
+      type="password"
+      css={passwordInputStyle}
+      {...props} />
   )
 }
